@@ -1,0 +1,105 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Tagline or Trash?</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(to bottom, #ff69b4, #ffe4e1);
+      color: #fff;
+      margin: 0;
+      padding: 40px;
+      text-align: center;
+    }
+    .game-container {
+      max-width: 800px;
+      margin: auto;
+      background: #fff0f5;
+      border-radius: 10px;
+      padding: 20px;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+      color: #000;
+    }
+    .round-title {
+      font-size: 2em;
+      margin-bottom: 20px;
+      color: #ff1493;
+    }
+    .tagline-text {
+      font-size: 1.6em;
+      margin-bottom: 30px;
+      font-style: italic;
+    }
+    .button {
+      background-color: #ff69b4;
+      color: white;
+      border: none;
+      padding: 15px 30px;
+      margin: 10px;
+      border-radius: 8px;
+      font-size: 1em;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+    .button:hover {
+      background-color: #ff1493;
+    }
+    .result {
+      margin-top: 20px;
+      font-size: 1.2em;
+      color: #c71585;
+      font-weight: bold;
+    }
+    .score {
+      margin-top: 30px;
+      font-size: 1.2em;
+      color: #800080;
+    }
+  </style>
+</head>
+<body>
+  <div class="game-container">
+    <div class="round-title" id="round-title">Round 1</div>
+    <div class="tagline-text" id="tagline-text">Loading...</div>
+    <button class="button" onclick="makeGuess('Real')">Real 💎</button>
+    <button class="button" onclick="makeGuess('Fake')">Trash 🗑️</button>
+    <div class="result" id="result"></div>
+    <div class="score" id="score">Score: 0</div>
+  </div>
+
+  <script>
+    const taglines = [{'text': 'I never argue—I delegate destruction.', 'type': 'Fake'}, {'text': "You can't spell fabulous without me.", 'type': 'Fake'}, {'text': 'Money can’t buy you class, but it can buy you everything else.', 'type': 'Real'}, {'text': 'I’m not high maintenance, you’re just low effort.', 'type': 'Fake'}, {'text': 'I won’t settle for anything less than everything.', 'type': 'Real'}, {'text': 'I run on champagne and shade.', 'type': 'Fake'}, {'text': 'I’m sugar, spice, and a whole lot of receipts.', 'type': 'Fake'}, {'text': 'Silence is golden, but my gossip is platinum.', 'type': 'Fake'}, {'text': 'I bring the table, not just a seat at it.', 'type': 'Real'}, {'text': 'You bring the drama, I bring the ratings.', 'type': 'Fake'}, {'text': "My husband's checks are bigger than your dreams.", 'type': 'Real'}, {'text': 'If you can’t handle the heat, get out of my kitchen.', 'type': 'Real'}, {'text': 'I may be a princess, but I’m definitely the queen.', 'type': 'Real'}, {'text': "They say I talk too much, but I prefer the term 'legendary.'", 'type': 'Fake'}, {'text': 'Behind every great woman is her glam squad.', 'type': 'Fake'}, {'text': "I don't keep up with the Joneses—I am the Joneses.", 'type': 'Real'}, {'text': 'I don’t need therapy, I just need more diamonds.', 'type': 'Fake'}, {'text': 'I’m not just a housewife—I’m a lifestyle.', 'type': 'Real'}, {'text': 'Drama is my cardio.', 'type': 'Real'}, {'text': 'I’m an enigma, wrapped in a riddle, and cashmere.', 'type': 'Real'}];
+    let currentRound = 0;
+    let score = 0;
+
+    function updateRound() {
+      if (currentRound >= taglines.length) {
+        document.getElementById("round-title").innerText = "Game Over 🎉";
+        document.getElementById("tagline-text").innerText = "You finished all rounds!";
+        document.getElementById("result").innerText = "";
+        return;
+      }
+      document.getElementById("round-title").innerText = "Round " + (currentRound + 1);
+      document.getElementById("tagline-text").innerText = '"' + taglines[currentRound].text + '"';
+      document.getElementById("result").innerText = "";
+    }
+
+    function makeGuess(guess) {
+      const correct = taglines[currentRound].type;
+      if (guess === correct) {
+        score++;
+        document.getElementById("result").innerText = "Correct! It was " + correct + "!";
+      } else {
+        document.getElementById("result").innerText = "Wrong! It was actually " + correct + ".";
+      }
+      document.getElementById("score").innerText = "Score: " + score;
+      currentRound++;
+      setTimeout(updateRound, 1500);
+    }
+
+    updateRound();
+  </script>
+</body>
+</html>
